@@ -13,7 +13,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // your code goes here
 
-
+app.get("/topRankings",async (req,res)=>{
+    const offset=Number(req.query.offset || 0);
+    const limit=Number(req.query.limit || 20);
+    const dataToSend=data.slice(offset,limit+1);
+    res.send(dataToSend);
+});
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 module.exports = app;
