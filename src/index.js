@@ -14,11 +14,18 @@ app.use(bodyParser.json())
 // your code goes here
 
 app.get("/topRankings",async (req,res)=>{
-    const offset=Number(req.query.offset || 0);
-    const limit=Number(req.query.limit || 20);
+    const offset=getValue(req.query.offset,0);
+    const limit=getValue(req.query.limit,20);
     const dataToSend=data.slice(offset,limit+1);
     res.send(dataToSend);
 });
+
+const getValue = (value, defaultValue) => {
+    if (value === null || value === undefined || isNaN(Number(value))) {
+      return defaultValue;
+    }
+    return Number(value);
+  };
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 module.exports = app;
