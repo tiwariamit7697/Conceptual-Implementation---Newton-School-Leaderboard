@@ -13,10 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // your code goes here
 
-app.get("/topRankings",(req,res)=>{
+app.get("/topRankings", async (req,res)=>{
     const offset=getValue(req.query.offset,0);
-    const limit=getValue(req.query.limit,20);
-    const dataToSend=data.slice(offset,limit+1);
+    const limit=getValue(req.query.limit,20) +offset;
+    const dataToSend=await data.slice(offset,limit+1);
     console.log(dataToSend);
     res.send(dataToSend);
 });
